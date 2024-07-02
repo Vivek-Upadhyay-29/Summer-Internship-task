@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Day-3 Tasks</h1>
+    <hr />
+
+    <script>
+      async function load() {
+        let url = "https://data.covid19india.org/data.json";
+        let covidData = await(await fetch(url)).json();
+        document.write(covidData["cases_time_series"][0]["date"]);
+        document.write("<table border='1'>");
+        for (var i = 0; i < covidData["cases_time_series"].length; i++) {
+
+            if(covidData['cases_time_series'][i]['dailyconfirmed']>=100000){
+
+                document.write("<tr style='color:red'><td>" + (i + 1) + "</td> <td>"  +covidData['cases_time_series'][i]['dailyconfirmed']+ "</td><td>"+ covidData['cases_time_series'][i]['dailyrecovered'] + "</td><td>" +covidData['cases_time_series'][i]['date']+"</td></tr>");
+       
+
+            }
+            else{
+          document.write("<tr><td>" + (i + 1) + "</td> <td>"  +covidData['cases_time_series'][i]['dailyconfirmed']+ "</td><td>"+ covidData['cases_time_series'][i]['dailyrecovered'] + "</td><td>" +covidData['cases_time_series'][i]['date']+"</td></tr>");
+            }
+       
+        }
+
+        document.write("</table>");
+      }
+      load();
+    </script>
+  </body>
+</html>
