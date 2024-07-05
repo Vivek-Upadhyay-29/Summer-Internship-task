@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>University Report</h1>
+    <script>
+      async function load() {
+        let url = "http://universities.hipolabs.com/search?country=india";
+      
+          // Check if website requires API key
+      const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key if required
+
+      const response = await fetch(url, {
+        headers: apiKey ? { 'Authorization': `Bearer ${apiKey}` } : {} // Add header if using API key
+      });
+      if (!response.ok) {
+        console.error('Error fetching universities:', response.statusText);
+        return;
+      }
+      const universitiesData = await response.json();
+
+     
+        document.write("<table border='1'>");
+        for (var i = 0; universitDataKey["apiKey"].length; i++) {
+          document.write(
+            "<tr><td>" +
+              (i + 1) +
+              "</td> <td>" +
+                universitDataKey["apiKey"][i]["name"] +
+              "</td><td>" +
+                universitDataKey["apiKey"][i]["state-province"] +
+              "</td><td>" +
+                universitDataKey["apiKey"][i]["web_pages"] +
+              "</td></tr>"
+          );
+        }
+
+        document.write("</table>");
+      }
+
+      load();
+    </script>
+  </body>
+</html>
