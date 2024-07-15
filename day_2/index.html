@@ -3,18 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Covid Search</title>
 </head>
 <body>
-    <h1>Hello</h1>
     <script>
-        var i = parseInt(prompt("Enter a number"));
-        if (i%2 ==0 ){
-            console.log("Enter number is even");
+        function check(form){
+            var udate = form.dt.value;
+            async function load(){
+                let url = "https://data.covid19india.org/data.json";
+                let obj = await(await fetch(url)).json();
+                for(var i = 0; i < obj["cases_time_series"].length; i++){
+                    
+                    if(udate == obj["cases_time_series"][i]["date"]){
+                        document.getElementById("msg").innerHTML = "<table border='1'><tr><th>New Cases</th><td>"+obj["cases_time_series"][i]["dailyconfirmed"]+"</td></tr><tr><th>New Death</th><td>"+obj["cases_time_series"][i]["dailydeceased"]+"</td></tr></table>";
+                        break;
+                    }
+                    else{
+                        document.getElementById("msg").innerHTML = "data not found";
+                    }
+                }
+                
+            }
+            load();
         }
-        else {
-            console.log("It is odd")
-        }
+        
     </script>
+
+    <form>
+        Date : <input type="text" name="dt"> 
+        <input type="Submit" onclick="check(this.form); return false;">
+    </form>
+    <p id="msg"></p>
 </body>
 </html>
