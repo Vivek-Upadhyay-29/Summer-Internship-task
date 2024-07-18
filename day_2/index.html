@@ -1,38 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covid Search</title>
+    <title>form to table</title>
 </head>
-<body>
-    <script>
-        function check(form){
-            var udate = form.dt.value;
-            async function load(){
-                let url = "https://data.covid19india.org/data.json";
-                let obj = await(await fetch(url)).json();
-                for(var i = 0; i < obj["cases_time_series"].length; i++){
-                    
-                    if(udate == obj["cases_time_series"][i]["date"]){
-                        document.getElementById("msg").innerHTML = "<table border='1'><tr><th>New Cases</th><td>"+obj["cases_time_series"][i]["dailyconfirmed"]+"</td></tr><tr><th>New Death</th><td>"+obj["cases_time_series"][i]["dailydeceased"]+"</td></tr></table>";
-                        break;
-                    }
-                    else{
-                        document.getElementById("msg").innerHTML = "data not found";
-                    }
-                }
-                
-            }
-            load();
-        }
-        
-    </script>
 
-    <form>
-        Date : <input type="text" name="dt"> 
-        <input type="Submit" onclick="check(this.form); return false;">
+<body>
+    <form action="#" id="formdata">
+        <label for="name">Name : </label> <br>
+        <input type="text" id="name"> <br> <br>
+
+        <label for="email">Email : </label> <br>
+        <input type="email" id="email"> <br> <br>
+
+        Gender : <br>
+        <input type="radio" id="male" name="gender" value="male"> 
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label> <br> <br>
+
+        <label for="city">City : </label> <br>
+        <select name="city" id="city">
+            <option value="">select city</option>
+            <option value="Ahmedabad">Ahmedabad</option>
+            <option value="Mehsana">Mehsana</option>
+            <option value="Kalol">Kalol</option>
+            <option value="Surat">Surat</option>
+            <option value="Patna">Patna</option>
+        </select> <br> <br>
+
+        <label for="address">Address : </label><br>
+        <textarea name="" id="address"></textarea> <br><br>
+
+        <button type="submit">Submit</button>
     </form>
-    <p id="msg"></p>
+
+    <h2>Submitted Data</h2>
+    <table border="1" id="tabledata">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>City</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+    <script>
+        document.getElementById('formdata').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById('email').value;
+            <!-- const gender = document.getElementById('gender').value; -->
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const city = document.getElementById('city').value;
+            const address = document.getElementById('address').value;
+
+            const tableBody = document.getElementById('tabledata').getElementsByTagName('tbody')[0];
+
+            const newRow = tableBody.insertRow();
+            const nameCell = newRow.insertCell(0);
+            const emailCell = newRow.insertCell(1);
+            const genderCell = newRow.insertCell(2);
+            const cityCell = newRow.insertCell(3);
+            const addressCell = newRow.insertCell(4);
+
+            nameCell.innerHTML = name;
+            emailCell.innerHTML = email;
+            genderCell.innerHTML = gender;
+            cityCell.innerHTML = city;
+            addressCell.innerHTML = address;
+
+            document.getElementById('formdata').reset();
+        });
+    </script>
 </body>
+
 </html>

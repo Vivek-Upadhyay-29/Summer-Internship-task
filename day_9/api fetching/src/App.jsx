@@ -24,14 +24,14 @@ function App() {
   }, []);
 
   return (
-    <Container fluid>
-      <Row xs={1} md={3} className="g-4">
+    <Container fluid  >
+      <Row xs={1} md={3} className="g-4 mt-4">
         {mydata.map((value) => {
           return (
             <>
               <Col className="container-fluid mt-4"   >
-                <Card>
-                  <Card.Img variant="top" src={value.imageUrl} height="200px" width="300px"/>
+                <Card >
+                  <Card.Img variant="top" src={value.imageUrl} style={{height: 275}}/>
                   <Card.Body>
                     <Card.Title>{value.title}</Card.Title>
                     <Card.Text>{value.content}</Card.Text>
